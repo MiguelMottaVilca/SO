@@ -8,6 +8,8 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <math.h>
+#include "queue.h"
+
 #define MAX_BUF 256
 
 #define KEY 0x1112
@@ -72,8 +74,8 @@ int main(){
   fd2 = open(myfifo2,O_WRONLY);
   write(fd2,process3,sizeof(process3));        
   close(fd2);
-}
-else{
+  }
+  else{
   char *myfifo3 = "/tmp/myfifo";
   char buf[100];
   char process2[100];

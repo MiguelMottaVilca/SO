@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <pthread.h>
+#include "queue.h"
 
 #define MAXSIZE 128
 
