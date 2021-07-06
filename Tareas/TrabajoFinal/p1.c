@@ -15,15 +15,20 @@
 #include <sys/sem.h>
 #include <stdbool.h>
 #include "queue.h"
-
 #define MAXSIZE     128
 #define SHMSZ     27
 #define SIGINT  2   /* Interrupt the process */ 
+//#define SIZE 150
+//px-pw
 #define P1_2 0x1111
 #define P2_1 0x1112
 
+//pm-px
+#define P4_1 0x1119
+#define P1_4 0x1120
 
-int id;
+int id;//p1_2
+int id2;//p2_1
  
   
 union semun{
@@ -59,7 +64,7 @@ void sighandler(int signum){  // 2
 void controlar_shemaphore(void *vargp){
     int valor;
     while (1){
-        if (Rear-Front>=1){//myqueue.size() > 0
+    if (Rear-Front>=1){//myqueue.size() > 0
             //int input;
             int fd;
             char *myfifo="/tmp/myfifo";
@@ -73,7 +78,8 @@ void controlar_shemaphore(void *vargp){
             if (semop(id, &p, 1) < 0){
                 perror("semop p");                              ///
                 exit(15);
-            }    
+            }  
+            ///////////////////////////////////////////////////////////////  
             printf("Entra al semaforo  : ");                                               ////
             fd=open(myfifo,O_WRONLY);
             valor = inp_arr[Front];
@@ -84,7 +90,7 @@ void controlar_shemaphore(void *vargp){
             write(fd,entrada,sizeof(entrada));
             //std::cout << "Valor que se envia al FIFO :" << valor << std::endl;
             
-            if (semop(id, &v, 1) < 0){
+            if (semop(id2, &v, 1) < 0){
                 perror("semop p");
                 exit(16);
             } 
@@ -118,12 +124,15 @@ int main(){
         perror("semget");
         exit(11);
     }
-    
-    // if (semop(id, &v, 1) < 0)
-    //                 {
-    //                     perror("semop p");
-    //                     exit(16);
-    //                 }
+    id2 = semget(P2_1, 1, 0666 | IPC_CREAT);
+    if (id2 < 0){
+        perror("semget");
+        exit(11);
+    }
+    if (semop(id, &v, 1) < 0){
+        perror("semop p");                              ///
+        exit(15);
+    }  
 
     pthread_t controlar;
     pthread_create(&controlar , NULL, controlar_shemaphore,NULL);
@@ -171,4 +180,3 @@ int main(){
     // }
     //////////////////////////////
 }
-

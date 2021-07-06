@@ -20,6 +20,14 @@
 
 double pi = 3.1416;
 
+//pw-pq
+#define P2_3 0x1115
+#define P3_2 0x1116
+
+//pq-pm
+#define P3_4 0x1117
+#define P4_3 0x1118
+
 void die(char *s){
     perror(s);
     exit(1);

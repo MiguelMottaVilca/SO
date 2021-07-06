@@ -12,6 +12,14 @@
 
 #define MAXSIZE 128
 
+//pw-pq
+#define P2_3 0x1115
+#define P3_2 0x1116
+
+//pq-pm
+#define P3_4 0x1117
+#define P4_3 0x1118
+
 int status = 1 ;
 char buf[MAXSIZE];
 long long numThread = 0;
