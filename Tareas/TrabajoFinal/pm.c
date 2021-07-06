@@ -11,9 +11,13 @@
 #include <sys/shm.h>
 #include <string.h>
 #include <stdbool.h>
+#include <pthread.h>
+#include "queue.h"
+
 #define MAXSIZE 128
 #define SHMSZ 27
 #define SIZE 256
+
 double pi = 3.1416;
 
 void die(char *s){
@@ -25,6 +29,14 @@ struct msgbuf{
     long   mtype;
     char mtext[MAXSIZE];
 };
+
+void T1(void *vargp){
+
+}
+
+void T2(void *vargp){
+
+}
 
 void shareMemory(){
     int msqid;
@@ -84,6 +96,13 @@ void shareMemory(){
 }
 
 int main(){
+
+    pthread_t thread1;
+    pthread_t thread2;
+
+    pthread_create(&thread1 , NULL, T1,NULL);
+    pthread_create(&thread2 , NULL, T2,NULL);
+
 
     shareMemory();
 
