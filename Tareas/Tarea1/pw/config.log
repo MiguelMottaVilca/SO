@@ -161,8 +161,10 @@ on legion
 config.status:834: creating Makefile
 config.status:834: creating src/Makefile
 config.status:834: creating config.h
+config.status:1015: config.h is unchanged
 config.status:1063: executing depfiles commands
 config.status:1140: cd src       && sed -e '/# am--include-marker/d' Makefile         | make -f - am--depfiles
+make: Nothing to be done for 'am--depfiles'.
 config.status:1145: $? = 0
 
 ## ---------------- ##

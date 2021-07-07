@@ -35,35 +35,41 @@ int main(){
         exit(12);
     }
 
-
     if (semop(id, &p, 1) < 0){
         perror("semop p");
         exit(13);
     }
-
+    
     int input;
     int fd;
-    char *myfifo="/tmp/myfifo";
+    char *myfifo = "/tmp/myfifo";
     char entrada[100];
+    printf("Ingrese numero : ");
     scanf("%d",&input);
     sprintf(entrada,"%d\n",input);
     mkfifo(myfifo,0666);
-    fd=open(myfifo,O_WRONLY);
+    fd = open(myfifo,O_WRONLY);
     write(fd,entrada,sizeof(entrada));
     close(fd);
     unlink(myfifo);
-    
-    char *myfifo1="/tmp/myfifo1";
-    char buf[100];
-    char process2[100];
-    int fifo=open(myfifo1,O_RDONLY);
-    int n=read(fifo,buf,sizeof(buf));
-    printf("respuesta %s\n",buf);
-    close(fifo);
+    int opcion;
 
+    printf("Esperando resultado ...\n");
+    printf("Ingrese 1 para obtener respuesta \n");
+    scanf("%d",&opcion);
+    if(opcion == 1){
+        char *myfifo1 = "/tmp/myfifoAns";
+        char buf[100];
+        char process2[100];
+        int fifo = open(myfifo1,O_RDONLY);
+        int n = read(fifo,buf,sizeof(buf));
+        printf("res : %s\n",buf);
+        close(fifo);
 
-    if (semop(id, &v, 1) < 0){
-        perror("semop p");
-        exit(14);
+        if (semop(id, &v, 1) < 0){
+            perror("semop p");
+            exit(14);
+        }
+        
     }
 }
