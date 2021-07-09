@@ -95,7 +95,16 @@ int main(){
     char *myfifo2 = "/tmp/myfifoAns";
     mkfifo(myfifo2,0666);  
     fd2 = open(myfifo2,O_WRONLY);
-    write(fd2,process3,sizeof(process3));        
+    if (semop(id2, &p, 1) < 0){
+      perror("semop p");
+      exit(15);
+    }
+    write(fd2,process3,sizeof(process3));
+    if (semop(id, &v, 1) < 0){
+      perror("semop p");
+      exit(15);
+    }
+
     close(fd2);
 
   }
@@ -120,8 +129,8 @@ int main(){
       int num = atoi(buf);
       close(fifo);
       if (semop(id, &v, 1) < 0){
-                    perror("semop p");
-                    exit(15);
+        perror("semop p");
+        exit(15);
       }
         /////////////////////////////////////////////////////////////////
 

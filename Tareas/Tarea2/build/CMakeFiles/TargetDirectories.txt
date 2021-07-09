@@ -1,0 +1,3 @@
+/home/miguel/Documents/SO/Tareas/Tarea2/build/CMakeFiles/rebuild_cache.dir
+/home/miguel/Documents/SO/Tareas/Tarea2/build/CMakeFiles/edit_cache.dir
+/home/miguel/Documents/SO/Tareas/Tarea2/build/CMakeFiles/a.out.dir
